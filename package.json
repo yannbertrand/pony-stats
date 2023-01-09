@@ -6,7 +6,9 @@
   "main": "index.mjs",
   "scripts": {
     "test": "vitest",
-    "start": "node --experimental-fetch index.mjs"
+    "start": "node --experimental-fetch lib/index.mjs",
+    "gh:get-token": "node --experimental-fetch .github/get-token.mjs",
+    "gh:get-trips": "node --experimental-fetch .github/get-trips.mjs"
   },
   "devDependencies": {
     "dotenv": "^16.0.3",

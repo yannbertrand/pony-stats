@@ -11,18 +11,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js 18.x
-      uses: actions/setup-node@v3
-      with:
-        node-version: 18.13.0
-        cache: 'npm'
-    - run: npm ci
-    - id: get-token
-      name: Get access token
-      run: node --experimental-fetch get-token.mjs
-    - id: get-trips
-      name: Get trips
-      run: node --experimental-fetch get-trips.mjs
-      env:
-        ACCESS_TOKEN: steps.get-token.outputs.accessToken
+      - uses: actions/checkout@v3
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.13.0
+          cache: 'npm'
+      - run: npm ci
+      - id: get-token
+        name: Get access token
+        run: npm run gh:get-token
+        env:
+          USER_ID: ${{ secrets.USER_ID }}
+          REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN }}
+          SECURE_TOKEN_KEY: ${{ secrets.SECURE_TOKEN_KEY }}
+          LAST_ACCESS_TOKEN: ${{ secrets.LAST_ACCESS_TOKEN }}
+      - id: get-trips
+        name: Get trips
+        run: npm run gh:get-trips
+        env:
+          USER_ID: ${{ secrets.USER_ID }}
+          ACCESS_TOKEN: ${{ steps.get-token.outputs.accessToken }}
