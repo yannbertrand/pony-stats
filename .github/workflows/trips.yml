@@ -32,3 +32,6 @@ jobs:
         env:
           USER_ID: ${{ secrets.USER_ID }}
           ACCESS_TOKEN: ${{ steps.get-token.outputs.accessToken }}
+      - id: update-trips-file
+        name: Update trips file
+        run: npm run gh:update-trips-file '${{ steps.get-trips.outputs.trips }}'

@@ -8,7 +8,8 @@
     "test": "vitest",
     "start": "node --experimental-fetch lib/index.mjs",
     "gh:get-token": "node --experimental-fetch .github/get-token.mjs",
-    "gh:get-trips": "node --experimental-fetch .github/get-trips.mjs"
+    "gh:get-trips": "node --experimental-fetch .github/get-trips.mjs",
+    "gh:update-trips-file": "node --experimental-fetch .github/update-trips-file.mjs"
   },
   "devDependencies": {
     "dotenv": "^16.0.3",

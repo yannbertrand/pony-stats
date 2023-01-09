@@ -6,7 +6,7 @@ try {
 
   console.log(`Got ${trips.length} trips`);
 
-  setOutput('trips', trips);
+  setOutput('trips', JSON.stringify(trips));
 } catch (error) {
   setFailed(`Could not get trips ${error}`);
 }
