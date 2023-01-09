@@ -1,0 +1,28 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+name: Get trips
+
+on:
+  workflow_dispatch:
+
+jobs:
+  get-trips:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js 18.x
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18.13.0
+        cache: 'npm'
+    - run: npm ci
+    - id: get-token
+      name: Get access token
+      run: node --experimental-fetch get-token.mjs
+    - id: get-trips
+      name: Get trips
+      run: node --experimental-fetch get-trips.mjs
+      env:
+        ACCESS_TOKEN: steps.get-token.outputs.accessToken
