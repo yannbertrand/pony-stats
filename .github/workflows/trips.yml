@@ -9,6 +9,8 @@ on:
 jobs:
   get-trips:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - uses: actions/checkout@v3
@@ -35,3 +37,8 @@ jobs:
       - id: update-trips-file
         name: Update trips file
         run: npm run gh:update-trips-file '${{ steps.get-trips.outputs.trips }}'
+      - uses: test-room-7/action-update-file@v1
+        with:
+          file-path: trips.json
+          commit-msg: Update trips.json
+          github-token: ${{ secrets.GITHUB_TOKEN }}
