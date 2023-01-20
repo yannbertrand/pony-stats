@@ -2,7 +2,10 @@ import { createCanvas } from './get-canvas.mjs';
 import { avg, median } from './maths.mjs';
 
 export const createGraphsPerDay = (rawTrips) => {
-  const wholeRevenuePerDayCtx = createCanvas('revenue-per-day');
+  const wholeRevenuePerDayCtx = createCanvas(
+    'revenue-per-day',
+    'Revenue / jour'
+  );
   const wholeRevenuesPerDay = rawTrips.reduce((acc, t) => {
     const date = new Date(t.endTime).toLocaleDateString('fr');
     if (!acc[date]) acc[date] = 0;

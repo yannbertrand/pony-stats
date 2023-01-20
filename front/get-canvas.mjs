@@ -1,8 +1,25 @@
 const main = document.getElementById('main');
 
-export const createCanvas = (id) => {
+export const createCanvas = (id, titleContent) => {
+  const article = document.createElement('article');
+  const canvas = getCanvas(id);
+  const title = getTitle(titleContent);
+
+  if (titleContent) main.appendChild(title);
+  article.appendChild(canvas);
+  main.appendChild(article);
+
+  return canvas;
+};
+
+const getCanvas = (id) => {
   const canvas = document.createElement('canvas');
   canvas.id = id;
-  main.appendChild(canvas);
   return canvas;
+};
+
+const getTitle = (titleContent) => {
+  const title = document.createElement('h2');
+  title.textContent = titleContent;
+  return title;
 };

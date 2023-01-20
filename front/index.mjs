@@ -2,6 +2,7 @@ import trips from '../trips.json' assert { type: 'json' };
 import { createCanvas } from './get-canvas.mjs';
 import { createGraphsPerDay } from './graph-per-day.mjs';
 import { avg, median, duration } from './maths.mjs';
+import '@picocss/pico/css/pico.css';
 
 const rawTrips = trips
   .filter((t) => !t._id)
@@ -61,7 +62,7 @@ console.log(`Reasons: ${discountReasons.join(', ')}`);
 
 createGraphsPerDay(rawTrips);
 
-const revenueContinuousCtx = createCanvas('revenue');
+const revenueContinuousCtx = createCanvas('revenue', 'Revenue cummulé');
 const summedRevenue = rawTrips.reduce(
   (acc, t) => {
     acc.push(acc.at(-1) + t.revenue);

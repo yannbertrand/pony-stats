@@ -6,6 +6,7 @@
   "main": "index.mjs",
   "scripts": {
     "test": "vitest",
+    "update-trips-file": "node --experimental-fetch lib/index.mjs",
     "start": "vite dev",
     "build": "vite build",
     "gh:get-token": "node --experimental-fetch .github/get-token.mjs",
@@ -19,6 +20,7 @@
   },
   "dependencies": {
     "@actions/core": "^1.10.0",
-    "@actions/github": "^5.1.1"
+    "@actions/github": "^5.1.1",
+    "@picocss/pico": "^1.5.6"
   }
 }
