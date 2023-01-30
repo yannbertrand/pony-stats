@@ -5,7 +5,6 @@ import { avg, median, duration } from './maths.mjs';
 import '@picocss/pico/css/pico.css';
 
 const rawTrips = trips
-  .filter((t) => !t._id)
   .filter(
     (value, index, self) =>
       index === self.findIndex((t) => t.trip_id === value.trip_id)
