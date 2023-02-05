@@ -18,41 +18,34 @@ export const createGraphsPerDay = (rawTrips, bikes) => {
     'revenue-per-day',
     'Revenue / jour'
   );
-  const wholeRevenuesPerDayPerPonies = Object.keys(bikes)
-    .map((bikeName) => {
-      return {
-        bikeName,
-        wholeRevenuesPerDayPerBike: dates.reduce((acc, date) => {
-          acc[date.toLocaleDateString('fr')] =
-            rawTrips
-              .filter((t) => t.bikeName === bikeName)
-              .filter((t) => t.day === date.toLocaleDateString('fr'))
-              .reduce((sum, t) => {
-                sum += t.revenue;
-                return sum;
-              }, 0) || 0;
-          return acc;
-        }, {}),
-      };
-    })
-    .map(({ bikeName, wholeRevenuesPerDayPerBike }) => ({
-      label: bikeName,
-      data: Object.values(wholeRevenuesPerDayPerBike),
-      borderWidth: 1,
-      showLine: false,
-      stack: 'Stack 0',
-    }));
-  console.log(wholeRevenuesPerDayPerPonies);
-  const wholeRevenuesPerDay = dates.reduce((acc, date) => {
-    acc[date.toLocaleDateString('fr')] =
-      rawTrips
-        .filter((t) => t.day === date.toLocaleDateString('fr'))
-        .reduce((sum, t) => {
-          sum += t.revenue;
-          return sum;
-        }, 0) || 0;
-    return acc;
-  }, {});
+  const wholeRevenuesPerDayPerBikes = Object.keys(bikes).map((bikeName) => {
+    return {
+      bikeName,
+      wholeRevenuesPerDayPerBike: dates.reduce((acc, date) => {
+        acc[date.toLocaleDateString('fr')] =
+          rawTrips
+            .filter((t) => t.bikeName === bikeName)
+            .filter((t) => t.day === date.toLocaleDateString('fr'))
+            .reduce((sum, t) => {
+              sum += t.revenue;
+              return sum;
+            }, 0) || 0;
+        return acc;
+      }, {}),
+    };
+  });
+  const wholeRevenuesPerDay = wholeRevenuesPerDayPerBikes.reduce(
+    (revenuesPerDay, { wholeRevenuesPerDayPerBike }) => {
+      Object.keys(wholeRevenuesPerDayPerBike).forEach((key) => {
+        revenuesPerDay[key] += wholeRevenuesPerDayPerBike[key];
+      });
+      return revenuesPerDay;
+    },
+    dates.reduce((acc, d) => {
+      acc[d.toLocaleDateString('fr')] = 0;
+      return acc;
+    }, {})
+  );
   const avgWholeRevenuePerDay = avg(Object.values(wholeRevenuesPerDay)).toFixed(
     3
   );
@@ -64,7 +57,15 @@ export const createGraphsPerDay = (rawTrips, bikes) => {
     data: {
       labels: dates.map((d) => d.toLocaleDateString('fr')),
       datasets: [
-        ...wholeRevenuesPerDayPerPonies,
+        ...wholeRevenuesPerDayPerBikes.map(
+          ({ bikeName, wholeRevenuesPerDayPerBike }) => ({
+            label: bikeName,
+            data: Object.values(wholeRevenuesPerDayPerBike),
+            borderWidth: 1,
+            showLine: false,
+            stack: 'Stack 0',
+          })
+        ),
         {
           label: `Median (${medianWholeRevenuePerDay})`,
           data: Object.values(wholeRevenuesPerDay).map(
