@@ -14,6 +14,7 @@ function getDateArray(start, end) {
 
 export const createGraphsPerDay = (rawTrips, bikes) => {
   const dates = getDateArray(rawTrips.at(0).endTime, rawTrips.at(-1).endTime);
+  const datesStrings = dates.map((d) => d.toLocaleDateString('fr'));
   const wholeRevenuePerDayCtx = createCanvas(
     'revenue-per-day',
     'Revenue / jour'
@@ -21,11 +22,11 @@ export const createGraphsPerDay = (rawTrips, bikes) => {
   const wholeRevenuesPerDayPerBikes = Object.keys(bikes).map((bikeName) => {
     return {
       bikeName,
-      wholeRevenuesPerDayPerBike: dates.reduce((acc, date) => {
-        acc[date.toLocaleDateString('fr')] =
+      wholeRevenuesPerDayPerBike: datesStrings.reduce((acc, date) => {
+        acc[date] =
           rawTrips
             .filter((t) => t.bikeName === bikeName)
-            .filter((t) => t.day === date.toLocaleDateString('fr'))
+            .filter((t) => t.day === date)
             .reduce((sum, t) => {
               sum += t.revenue;
               return sum;
@@ -41,8 +42,8 @@ export const createGraphsPerDay = (rawTrips, bikes) => {
       });
       return revenuesPerDay;
     },
-    dates.reduce((acc, d) => {
-      acc[d.toLocaleDateString('fr')] = 0;
+    datesStrings.reduce((acc, d) => {
+      acc[d] = 0;
       return acc;
     }, {})
   );
@@ -55,7 +56,7 @@ export const createGraphsPerDay = (rawTrips, bikes) => {
   new Chart(wholeRevenuePerDayCtx, {
     type: 'bar',
     data: {
-      labels: dates.map((d) => d.toLocaleDateString('fr')),
+      labels: datesStrings,
       datasets: [
         ...wholeRevenuesPerDayPerBikes.map(
           ({ bikeName, wholeRevenuesPerDayPerBike }) => ({
