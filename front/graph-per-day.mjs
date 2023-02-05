@@ -1,60 +1,28 @@
 import { createCanvas } from './get-canvas.mjs';
 import { avg, median } from './maths.mjs';
 
-export const createGraphsPerDay = (rawTrips) => {
-  rawTrips = rawTrips.filter(
-    (t) => new Date(t.endTime) > new Date('2022-12-29')
-  );
-  const dates = [
-    new Date('2022-12-29').toLocaleDateString('fr'),
-    new Date('2022-12-30').toLocaleDateString('fr'),
-    new Date('2022-12-31').toLocaleDateString('fr'),
-    new Date('2023-01-01').toLocaleDateString('fr'),
-    new Date('2023-01-02').toLocaleDateString('fr'),
-    new Date('2023-01-03').toLocaleDateString('fr'),
-    new Date('2023-01-04').toLocaleDateString('fr'),
-    new Date('2023-01-05').toLocaleDateString('fr'),
-    new Date('2023-01-06').toLocaleDateString('fr'),
-    new Date('2023-01-07').toLocaleDateString('fr'),
-    new Date('2023-01-08').toLocaleDateString('fr'),
-    new Date('2023-01-09').toLocaleDateString('fr'),
-    new Date('2023-01-10').toLocaleDateString('fr'),
-    new Date('2023-01-11').toLocaleDateString('fr'),
-    new Date('2023-01-12').toLocaleDateString('fr'),
-    new Date('2023-01-13').toLocaleDateString('fr'),
-    new Date('2023-01-14').toLocaleDateString('fr'),
-    new Date('2023-01-15').toLocaleDateString('fr'),
-    new Date('2023-01-16').toLocaleDateString('fr'),
-    new Date('2023-01-17').toLocaleDateString('fr'),
-    new Date('2023-01-18').toLocaleDateString('fr'),
-    new Date('2023-01-19').toLocaleDateString('fr'),
-    new Date('2023-01-20').toLocaleDateString('fr'),
-    new Date('2023-01-21').toLocaleDateString('fr'),
-    new Date('2023-01-22').toLocaleDateString('fr'),
-    new Date('2023-01-23').toLocaleDateString('fr'),
-    new Date('2023-01-24').toLocaleDateString('fr'),
-    new Date('2023-01-25').toLocaleDateString('fr'),
-    new Date('2023-01-26').toLocaleDateString('fr'),
-    new Date('2023-01-27').toLocaleDateString('fr'),
-    new Date('2023-01-28').toLocaleDateString('fr'),
-    new Date('2023-01-29').toLocaleDateString('fr'),
-    new Date('2023-01-30').toLocaleDateString('fr'),
-    new Date('2023-01-31').toLocaleDateString('fr'),
-    new Date('2023-02-01').toLocaleDateString('fr'),
-    new Date('2023-02-02').toLocaleDateString('fr'),
-    new Date('2023-02-03').toLocaleDateString('fr'),
-    new Date('2023-02-04').toLocaleDateString('fr'),
-    new Date('2023-02-05').toLocaleDateString('fr'),
-  ];
+function getDateArray(start, end) {
+  const arr = [];
+  const dt = new Date(start);
+  const endDate = new Date(end);
+  while (dt <= endDate) {
+    arr.push(new Date(dt));
+    dt.setDate(dt.getDate() + 1);
+  }
+  return arr;
+}
+
+export const createGraphsPerDay = (rawTrips, bikes) => {
+  const dates = getDateArray(rawTrips.at(0).endTime, rawTrips.at(-1).endTime);
   const wholeRevenuePerDayCtx = createCanvas(
     'revenue-per-day',
     'Revenue / jour'
   );
   const wholeRevenuesPerDayPerGinette = dates.reduce((acc, date) => {
-    acc[date] =
+    acc[date.toLocaleDateString('fr')] =
       rawTrips
         .filter((t) => t.bikeName === 'Ginette')
-        .filter((t) => new Date(t.endTime).toLocaleDateString('fr') === date)
+        .filter((t) => t.day === date.toLocaleDateString('fr'))
         .reduce((sum, t) => {
           sum += t.revenue;
           return sum;
@@ -62,10 +30,10 @@ export const createGraphsPerDay = (rawTrips) => {
     return acc;
   }, {});
   const wholeRevenuesPerDayPerHenriette = dates.reduce((acc, date) => {
-    acc[date] =
+    acc[date.toLocaleDateString('fr')] =
       rawTrips
         .filter((t) => t.bikeName === 'Henriette')
-        .filter((t) => new Date(t.endTime).toLocaleDateString('fr') === date)
+        .filter((t) => t.day === date.toLocaleDateString('fr'))
         .reduce((sum, t) => {
           sum += t.revenue;
           return sum;
@@ -73,9 +41,9 @@ export const createGraphsPerDay = (rawTrips) => {
     return acc;
   }, {});
   const wholeRevenuesPerDay = dates.reduce((acc, date) => {
-    acc[date] =
+    acc[date.toLocaleDateString('fr')] =
       rawTrips
-        .filter((t) => new Date(t.endTime).toLocaleDateString('fr') === date)
+        .filter((t) => t.day === date.toLocaleDateString('fr'))
         .reduce((sum, t) => {
           sum += t.revenue;
           return sum;
@@ -93,12 +61,6 @@ export const createGraphsPerDay = (rawTrips) => {
     data: {
       labels: Object.keys(wholeRevenuesPerDay),
       datasets: [
-        // {
-        //   label: 'Revenue/day',
-        //   data: Object.values(wholeRevenuesPerDay),
-        //   borderWidth: 1,
-        //   showLine: false,
-        // },
         {
           label: 'Ginette Revenue/day',
           data: Object.values(wholeRevenuesPerDayPerGinette),
@@ -155,10 +117,10 @@ export const createGraphsPerDay = (rawTrips) => {
     const ctx = createCanvas(`revenue-per-day-${bikeName}`);
 
     const revenuesPerDay = dates.reduce((acc, date) => {
-      acc[date] =
+      acc[date.toLocaleDateString('fr')] =
         rawTrips
           .filter((t) => t.bikeName === bikeName)
-          .filter((t) => new Date(t.endTime).toLocaleDateString('fr') === date)
+          .filter((t) => t.day === date.toLocaleDateString('fr'))
           .reduce((sum, t) => {
             sum += t.revenue;
             return sum;
@@ -171,11 +133,10 @@ export const createGraphsPerDay = (rawTrips) => {
       3
     );
     const paddedRevenuesPerDay = rawTrips.reduce((acc, t) => {
-      const date = new Date(t.endTime).toLocaleDateString('fr');
-      if (revenuesPerDay[date] === undefined) {
-        acc[date] = 0;
+      if (revenuesPerDay[t.day] === undefined) {
+        acc[t.day] = 0;
       } else {
-        acc[date] = revenuesPerDay[date];
+        acc[t.day] = revenuesPerDay[t.day];
       }
       return acc;
     }, {});
