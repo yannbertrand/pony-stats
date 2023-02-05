@@ -18,28 +18,31 @@ export const createGraphsPerDay = (rawTrips, bikes) => {
     'revenue-per-day',
     'Revenue / jour'
   );
-  const wholeRevenuesPerDayPerGinette = dates.reduce((acc, date) => {
-    acc[date.toLocaleDateString('fr')] =
-      rawTrips
-        .filter((t) => t.bikeName === 'Ginette')
-        .filter((t) => t.day === date.toLocaleDateString('fr'))
-        .reduce((sum, t) => {
-          sum += t.revenue;
-          return sum;
-        }, 0) || 0;
-    return acc;
-  }, {});
-  const wholeRevenuesPerDayPerHenriette = dates.reduce((acc, date) => {
-    acc[date.toLocaleDateString('fr')] =
-      rawTrips
-        .filter((t) => t.bikeName === 'Henriette')
-        .filter((t) => t.day === date.toLocaleDateString('fr'))
-        .reduce((sum, t) => {
-          sum += t.revenue;
-          return sum;
-        }, 0) || 0;
-    return acc;
-  }, {});
+  const wholeRevenuesPerDayPerPonies = Object.keys(bikes)
+    .map((bikeName) => {
+      return {
+        bikeName,
+        wholeRevenuesPerDayPerBike: dates.reduce((acc, date) => {
+          acc[date.toLocaleDateString('fr')] =
+            rawTrips
+              .filter((t) => t.bikeName === bikeName)
+              .filter((t) => t.day === date.toLocaleDateString('fr'))
+              .reduce((sum, t) => {
+                sum += t.revenue;
+                return sum;
+              }, 0) || 0;
+          return acc;
+        }, {}),
+      };
+    })
+    .map(({ bikeName, wholeRevenuesPerDayPerBike }) => ({
+      label: bikeName,
+      data: Object.values(wholeRevenuesPerDayPerBike),
+      borderWidth: 1,
+      showLine: false,
+      stack: 'Stack 0',
+    }));
+  console.log(wholeRevenuesPerDayPerPonies);
   const wholeRevenuesPerDay = dates.reduce((acc, date) => {
     acc[date.toLocaleDateString('fr')] =
       rawTrips
@@ -59,22 +62,9 @@ export const createGraphsPerDay = (rawTrips, bikes) => {
   new Chart(wholeRevenuePerDayCtx, {
     type: 'bar',
     data: {
-      labels: Object.keys(wholeRevenuesPerDay),
+      labels: dates.map((d) => d.toLocaleDateString('fr')),
       datasets: [
-        {
-          label: 'Ginette Revenue/day',
-          data: Object.values(wholeRevenuesPerDayPerGinette),
-          borderWidth: 1,
-          showLine: false,
-          stack: 'Stack 0',
-        },
-        {
-          label: 'Henriette Revenue/day',
-          data: Object.values(wholeRevenuesPerDayPerHenriette),
-          borderWidth: 1,
-          showLine: false,
-          stack: 'Stack 0',
-        },
+        ...wholeRevenuesPerDayPerPonies,
         {
           label: `Median (${medianWholeRevenuePerDay})`,
           data: Object.values(wholeRevenuesPerDay).map(
