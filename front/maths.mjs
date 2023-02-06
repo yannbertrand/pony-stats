@@ -19,3 +19,10 @@ export function median(values) {
 export function duration(t) {
   return new Date(t.endTime).getTime() - new Date(t.startTime).getTime();
 }
+
+export function getWeek(date) {
+  while (date.getDay() !== 1) {
+    date.setDate(date.getDate() - 1);
+  }
+  return date.toLocaleDateString('fr');
+}

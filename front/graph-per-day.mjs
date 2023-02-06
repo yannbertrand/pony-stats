@@ -1,5 +1,5 @@
 import { createCanvas } from './get-canvas.mjs';
-import { avg, median } from './maths.mjs';
+import { avg, median, getWeek } from './maths.mjs';
 
 function getDateArray(start, end) {
   const arr = [];
@@ -15,6 +15,9 @@ function getDateArray(start, end) {
 export const createGraphsPerDay = (rawTrips, bikes) => {
   const dates = getDateArray(rawTrips.at(0).endTime, rawTrips.at(-1).endTime);
   const datesStrings = dates.map((d) => d.toLocaleDateString('fr'));
+  const weeksStrings = dates
+    .filter((d) => d.getDay() === 1)
+    .map((d) => d.toLocaleDateString('fr'));
   const wholeRevenuePerDayCtx = createCanvas(
     'revenue-per-day',
     'Revenue / jour'
@@ -35,17 +38,38 @@ export const createGraphsPerDay = (rawTrips, bikes) => {
       }, {}),
     };
   });
-  const wholeRevenuesPerDay = wholeRevenuesPerDayPerBikes.reduce(
-    (revenuesPerDay, { wholeRevenuesPerDayPerBike }) => {
-      Object.keys(wholeRevenuesPerDayPerBike).forEach((key) => {
-        revenuesPerDay[key] += wholeRevenuesPerDayPerBike[key];
-      });
+  const wholeRevenuesPerDay = rawTrips.reduce(
+    (revenuesPerDay, t) => {
+      revenuesPerDay[t.day] += t.revenue;
       return revenuesPerDay;
     },
-    datesStrings.reduce((acc, d) => {
-      acc[d] = 0;
+    datesStrings.reduce(
+      (acc, d) => ({
+        ...acc,
+        [d]: 0,
+      }),
+      {}
+    )
+  );
+  const revenuePerWeek = rawTrips.reduce(
+    (acc, t) => {
+      acc[t.week] += t.revenue;
       return acc;
-    }, {})
+    },
+    weeksStrings.reduce(
+      (acc, w) => ({
+        ...acc,
+        [w]: 0,
+      }),
+      {}
+    )
+  );
+  const avgDailyRevenuePerWeek = Object.keys(revenuePerWeek).reduce(
+    (acc, key) => {
+      acc[key] = revenuePerWeek[key] / 7.0;
+      return acc;
+    },
+    {}
   );
   const avgWholeRevenuePerDay = avg(Object.values(wholeRevenuesPerDay)).toFixed(
     3
@@ -78,9 +102,7 @@ export const createGraphsPerDay = (rawTrips, bikes) => {
         },
         {
           label: `Average (${avgWholeRevenuePerDay})`,
-          data: Object.values(wholeRevenuesPerDay).map(
-            () => avgWholeRevenuePerDay
-          ),
+          data: dates.map((date) => avgDailyRevenuePerWeek[getWeek(date)]),
           borderWidth: 1,
           pointRadius: 1,
           type: 'line',
