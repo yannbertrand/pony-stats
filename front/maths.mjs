@@ -26,3 +26,14 @@ export function getWeek(date) {
   }
   return date.toLocaleDateString('fr');
 }
+
+export function getDateArray(start, end) {
+  const arr = [];
+  const dt = new Date(start);
+  const endDate = new Date(end);
+  while (dt <= endDate) {
+    arr.push(new Date(dt));
+    dt.setDate(dt.getDate() + 1);
+  }
+  return arr;
+}

@@ -1,16 +1,5 @@
 import { createCanvas } from './get-canvas.mjs';
-import { avg, median, getWeek } from './maths.mjs';
-
-function getDateArray(start, end) {
-  const arr = [];
-  const dt = new Date(start);
-  const endDate = new Date(end);
-  while (dt <= endDate) {
-    arr.push(new Date(dt));
-    dt.setDate(dt.getDate() + 1);
-  }
-  return arr;
-}
+import { avg, median, getWeek, getDateArray } from './maths.mjs';
 
 export const createGraphsPerDay = (rawTrips, bikes) => {
   const dates = getDateArray(rawTrips.at(0).endTime, rawTrips.at(-1).endTime);
