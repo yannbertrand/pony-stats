@@ -2,7 +2,7 @@ import { createCanvas } from './get-canvas.mjs';
 import { avg, median, getWeek, getDateArray } from './maths.mjs';
 
 export const createGraphsPerDay = (rawTrips, bikes) => {
-  const dates = getDateArray(rawTrips.at(0).endTime, rawTrips.at(-1).endTime);
+  const dates = getDateArray(rawTrips.at(0).endTime, new Date());
   const datesStrings = dates.map((d) => d.toLocaleDateString('fr'));
   const weeksStrings = dates
     .filter((d) => d.getDay() === 1)
