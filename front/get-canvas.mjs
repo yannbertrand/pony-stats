@@ -2,6 +2,7 @@ const main = document.getElementById('main');
 
 export const createCanvas = (id, titleContent) => {
   const article = document.createElement('article');
+  article.style.height = '200vh';
   const canvas = getCanvas(id);
   const title = getTitle(titleContent);
 
