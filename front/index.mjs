@@ -2,6 +2,7 @@ import trips from '../trips.json' assert { type: 'json' };
 import { transformTrips } from './transform-trips.mjs';
 import { getBikes } from './get-bikes.mjs';
 import { createCanvas } from './get-canvas.mjs';
+import { createStats } from './stats.mjs';
 import { createGraphsPerDay } from './graph-per-day.mjs';
 import { avg, median, duration } from './maths.mjs';
 import '@picocss/pico/css/pico.css';
@@ -63,6 +64,7 @@ console.log(`Reasons: ${discountReasons.join(', ')}`);
 
 const transformedTrips = transformTrips(rawTrips);
 const bikes = getBikes(rawTrips);
+createStats(transformedTrips, bikes);
 createGraphsPerDay(transformedTrips, bikes);
 
 const revenueContinuousCtx = createCanvas('revenue', 'Revenue cummulé');
