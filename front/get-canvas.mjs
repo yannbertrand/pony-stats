@@ -2,13 +2,25 @@ const main = document.getElementById('main');
 
 export const createCanvas = (id, titleContent) => {
   const article = document.createElement('article');
-  article.style.height = '200vh';
   const canvas = getCanvas(id);
   const title = getTitle(titleContent);
 
   if (titleContent) main.appendChild(title);
   article.appendChild(canvas);
   main.appendChild(article);
+
+  return canvas;
+};
+
+export const createMainCanvas = (id, titleContent, height) => {
+  const div = document.createElement('div');
+  div.style.height = `${height}vh`;
+  const canvas = getCanvas(id);
+  const title = getTitle(titleContent);
+
+  if (titleContent) main.appendChild(title);
+  div.appendChild(canvas);
+  main.appendChild(div);
 
   return canvas;
 };

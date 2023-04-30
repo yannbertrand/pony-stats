@@ -1,4 +1,4 @@
-import { createCanvas } from './get-canvas.mjs';
+import { createMainCanvas } from './get-canvas.mjs';
 import { avg, median, getWeek, getDateArray } from './maths.mjs';
 
 export const createGraphsPerDay = (rawTrips, bikes) => {
@@ -8,9 +8,10 @@ export const createGraphsPerDay = (rawTrips, bikes) => {
   const weeksStrings = dates
     .filter((d) => d.getDay() === 1)
     .map((d) => d.toLocaleDateString('fr'));
-  const wholeRevenuePerDayCtx = createCanvas(
+  const wholeRevenuePerDayCtx = createMainCanvas(
     'revenue-per-day',
-    'Revenue / jour'
+    'Revenue / jour',
+    dates.length * 2
   );
   const wholeRevenuesPerDayPerBikes = Object.keys(bikes).map((bikeName) => {
     return {
