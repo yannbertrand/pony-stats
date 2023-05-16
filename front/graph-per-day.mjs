@@ -105,9 +105,11 @@ export const createGraphsPerDay = (rawTrips, bikes) => {
       indexAxis: 'y',
       responsive: true,
       scales: {
-        // x: {
-        //   type: 'timeseries',
-        // },
+        x: {
+          gridLines: {
+            display: true,
+          },
+        },
         y: {
           beginAtZero: true,
         },
