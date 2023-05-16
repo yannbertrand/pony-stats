@@ -11,7 +11,7 @@ export const createGraphsPerDay = (rawTrips, bikes) => {
   const wholeRevenuePerDayCtx = createMainCanvas(
     'revenue-per-day',
     'Revenue / jour',
-    dates.length * 2
+    dates.length * 3
   );
   const wholeRevenuesPerDayPerBikes = Object.keys(bikes).map((bikeName) => {
     return {
