@@ -6,7 +6,7 @@ name: Get trips
 on:
   workflow_dispatch:
   schedule:
-    - cron: 0 */4 * * *
+    - cron: 50 */2 * * *
 
 jobs:
   get-trips:
