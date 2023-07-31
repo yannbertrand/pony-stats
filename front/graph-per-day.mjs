@@ -3,7 +3,11 @@ import { avg, median, getWeek, getDateArray } from './maths.mjs';
 
 export const createGraphsPerDay = (rawTrips, bikes) => {
   rawTrips = rawTrips.reverse();
-  const dates = getDateArray(rawTrips.at(-1).endTime, new Date()).reverse();
+  const today = new Date();
+  const dates = getDateArray(
+    today.setMonth(today.getMonth() - 6),
+    new Date()
+  ).reverse();
   const datesStrings = dates.map((d) => d.toLocaleDateString('fr'));
   const weeksStrings = dates
     .filter((d) => d.getDay() === 1)
