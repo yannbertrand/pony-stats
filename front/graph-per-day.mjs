@@ -35,7 +35,9 @@ export const createGraphsPerDay = (rawTrips, bikes) => {
   });
   const wholeRevenuesPerDay = rawTrips.reduce(
     (revenuesPerDay, t) => {
-      revenuesPerDay[t.day] += t.revenue;
+      if (revenuesPerDay[t.day] !== undefined) {
+        revenuesPerDay[t.day] += t.revenue;
+      }
       return revenuesPerDay;
     },
     datesStrings.reduce(
@@ -87,7 +89,7 @@ export const createGraphsPerDay = (rawTrips, bikes) => {
           })
         ),
         {
-          label: `Median (${medianWholeRevenuePerDay})`,
+          label: `6M Median (${medianWholeRevenuePerDay})`,
           data: Object.values(wholeRevenuesPerDay).map(
             () => medianWholeRevenuePerDay
           ),
@@ -96,7 +98,7 @@ export const createGraphsPerDay = (rawTrips, bikes) => {
           type: 'line',
         },
         {
-          label: `Average (${avgWholeRevenuePerDay})`,
+          label: `W Average (6M ${avgWholeRevenuePerDay})`,
           data: dates.map((date) => avgDailyRevenuePerWeek[getWeek(date)]),
           borderWidth: 1,
           pointRadius: 1,
