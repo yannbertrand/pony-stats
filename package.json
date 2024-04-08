@@ -6,12 +6,12 @@
   "main": "index.mjs",
   "scripts": {
     "test": "vitest",
-    "update-trips-file": "node --experimental-fetch lib/index.mjs",
+    "update-trips-file": "node lib/index.mjs",
     "start": "vite dev",
     "build": "vite build",
-    "gh:get-token": "node --experimental-fetch .github/get-token.mjs",
-    "gh:get-trips": "node --experimental-fetch .github/get-trips.mjs",
-    "gh:update-trips-file": "node --experimental-fetch .github/update-trips-file.mjs"
+    "gh:get-token": "node .github/get-token.mjs",
+    "gh:get-trips": "node .github/get-trips.mjs",
+    "gh:update-trips-file": "node .github/update-trips-file.mjs"
   },
   "devDependencies": {
     "dotenv": "^16.0.3",
