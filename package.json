@@ -14,7 +14,7 @@
     "gh:update-trips-file": "node .github/update-trips-file.mjs"
   },
   "devDependencies": {
-    "dotenv": "16.0.3",
+    "dotenv": "16.4.5",
     "vite": "4.5.3"
   },
   "dependencies": {
