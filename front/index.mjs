@@ -12,6 +12,7 @@ const rawTrips = trips
     (value, index, self) =>
       index === self.findIndex((t) => t.trip_id === value.trip_id)
   )
+  .filter(t => t.revenue !== undefined)
   .reverse();
 
 console.log(`${rawTrips.length} trips`);
