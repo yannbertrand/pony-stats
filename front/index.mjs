@@ -67,3 +67,17 @@ const transformedTrips = transformTrips(rawTrips);
 const bikes = getBikes(rawTrips);
 createStats(transformedTrips, bikes);
 createGraphsPerDay(transformedTrips, bikes);
+
+const initiallyUseDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+const icon = document.getElementById('apple-touch-icon');
+
+function switchIcon(usesDarkMode) {
+  if (usesDarkMode) {
+    icon.href = '/icons/apple-touch-icon-dark.png';
+  } else {
+    icon.href = '/icons/apple-touch-icon.png';
+  }
+}
+
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => switchIcon(e.matches));
+switchIcon(initiallyUseDarkMode);
