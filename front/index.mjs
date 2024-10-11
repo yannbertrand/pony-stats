@@ -45,39 +45,17 @@ console.log(`Durée moyenne : ${avgDuration / 1000}s`);
 const medianRevenue = median(rawTrips.map((t) => t.revenue));
 console.log(`Revenu médian : ${(medianRevenue / 100).toFixed(3)}€`);
 
-const medianDuration = median(
-  rawTrips.map(
-    (t) => new Date(t.endTime).getTime() - new Date(t.startTime).getTime()
-  )
-);
+const medianDuration = median(rawTrips.map((t) => new Date(t.endTime).getTime() - new Date(t.startTime).getTime()));
 console.log(`Durée médianne : ${medianDuration / 1000}s`);
 
 const discountedTrips = rawTrips.filter((t) => t.discountReason);
 console.log(
-  `${discountedTrips.length} discounted trips (${Math.round(
-    (discountedTrips.length / rawTrips.length) * 100
-  )}%)`
+  `${discountedTrips.length} discounted trips (${Math.round((discountedTrips.length / rawTrips.length) * 100)}%)`,
 );
-const discountReasons = [
-  ...new Set(discountedTrips.map((t) => t.discountReason)),
-];
+const discountReasons = [...new Set(discountedTrips.map((t) => t.discountReason))];
 console.log(`Reasons: ${discountReasons.join(', ')}`);
 
 const transformedTrips = transformTrips(rawTrips);
 const bikes = getBikes(rawTrips);
 createStats(transformedTrips, bikes);
 createGraphsPerDay(transformedTrips, bikes);
-
-const initiallyUseDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-const icon = document.getElementById('apple-touch-icon');
-
-function switchIcon(usesDarkMode) {
-  if (usesDarkMode) {
-    icon.href = '/icons/apple-touch-icon-dark.png';
-  } else {
-    icon.href = '/icons/apple-touch-icon.png';
-  }
-}
-
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => switchIcon(e.matches));
-switchIcon(initiallyUseDarkMode);
