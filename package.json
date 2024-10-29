@@ -19,6 +19,7 @@
   "dependencies": {
     "@actions/core": "1.11.1",
     "@actions/github": "6.0.0",
-    "@picocss/pico": "1.5.13"
+    "@picocss/pico": "1.5.13",
+    "chart.js": "4.4.6"
   }
 }

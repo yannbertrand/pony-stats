@@ -1,3 +1,4 @@
+import Chart from 'chart.js/auto';
 import { createMainCanvas } from './get-canvas.mjs';
 import { avg, median, getWeek, getDateArray } from './maths.mjs';
 
