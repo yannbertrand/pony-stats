@@ -1,4 +1,4 @@
-import trips from '../trips.json' assert { type: 'json' };
+import trips from '../trips.json' with { type: 'json' };
 import { transformTrips } from './transform-trips.mjs';
 import { getBikes } from './get-bikes.mjs';
 import { createCanvas } from './get-canvas.mjs';
