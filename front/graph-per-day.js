@@ -1,6 +1,6 @@
 import Chart from 'chart.js/auto';
-import { createMainCanvas } from './get-canvas.mjs';
-import { avg, median, getWeek, getDateArray } from './maths.mjs';
+import { createMainCanvas } from './get-canvas.js';
+import { avg, median, getWeek, getDateArray } from './maths.js';
 
 export const createGraphsPerDay = (rawTrips, bikes) => {
   rawTrips = rawTrips.reverse();

@@ -1,4 +1,4 @@
-import { updateTripsFile } from '../lib/update-trips-file.mjs';
+import { updateTripsFile } from '../lib/update-trips-file.js';
 
 const newTrips = JSON.parse(process.argv.at(2));
 

@@ -1,6 +1,6 @@
 import { getInput, setFailed, setOutput } from '@actions/core';
 import { env } from 'node:process';
-import { getToken } from '../lib/get-token.mjs';
+import { getToken } from '../lib/get-token.js';
 
 try {
   const accessToken = await getToken(

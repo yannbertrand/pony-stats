@@ -3,15 +3,15 @@
   "name": "pony-stats",
   "version": "0.0.1",
   "description": "",
-  "main": "index.mjs",
+  "type": "module",
   "scripts": {
     "test": "vitest",
-    "update-trips-file": "node --env-file-if-exists=.env lib/index.mjs",
+    "update-trips-file": "node --env-file-if-exists=.env lib/index.js",
     "start": "vite dev",
     "build": "vite build",
-    "gh:get-token": "node --env-file-if-exists=.env .github/get-token.mjs",
-    "gh:get-trips": "node --env-file-if-exists=.env .github/get-trips.mjs",
-    "gh:update-trips-file": "node --env-file-if-exists=.env .github/update-trips-file.mjs"
+    "gh:get-token": "node --env-file-if-exists=.env .github/get-token.js",
+    "gh:get-trips": "node --env-file-if-exists=.env .github/get-trips.js",
+    "gh:update-trips-file": "node --env-file-if-exists=.env .github/update-trips-file.js"
   },
   "devDependencies": {
     "vite": "5.4.10"

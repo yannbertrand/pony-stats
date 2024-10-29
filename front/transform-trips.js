@@ -1,4 +1,4 @@
-import { duration, getWeek } from './maths.mjs';
+import { duration, getWeek } from './maths.js';
 
 export function transformTrips(rawTrips) {
   return rawTrips.map((t) => ({
