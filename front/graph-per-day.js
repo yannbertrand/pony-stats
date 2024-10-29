@@ -6,7 +6,7 @@ export const createGraphsPerDay = (rawTrips, bikes) => {
   rawTrips = rawTrips.reverse();
   const today = new Date();
   const dates = getDateArray(
-    today.setMonth(today.getMonth() - 6),
+    today.setMonth(today.getMonth() - 3),
     new Date()
   ).reverse();
   const datesStrings = dates.map((d) => d.toLocaleDateString('fr'));
@@ -90,7 +90,7 @@ export const createGraphsPerDay = (rawTrips, bikes) => {
           })
         ),
         {
-          label: `6M Median (${medianWholeRevenuePerDay})`,
+          label: `3M Median (${medianWholeRevenuePerDay})`,
           data: Object.values(wholeRevenuesPerDay).map(
             () => medianWholeRevenuePerDay
           ),
@@ -99,7 +99,7 @@ export const createGraphsPerDay = (rawTrips, bikes) => {
           type: 'line',
         },
         {
-          label: `W Average (6M ${avgWholeRevenuePerDay})`,
+          label: `W Average (3M ${avgWholeRevenuePerDay})`,
           data: dates.map((date) => avgDailyRevenuePerWeek[getWeek(date)]),
           borderWidth: 1,
           pointRadius: 1,
