@@ -114,6 +114,7 @@ export const createGraphsPerDay = (rawTrips, bikes) => {
         x: {
           gridLines: {
             display: true,
+            tickLength: 2,
           },
         },
         y: {
