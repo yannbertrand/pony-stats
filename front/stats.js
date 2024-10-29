@@ -5,12 +5,12 @@ export function createStats(rawTrips) {
   const grid = createGrid('stats', 1);
   const last7DaysAverageRevenue = getLast7DaysAverageRevenue(rawTrips);
 
-  const last7DaysAverageRevenueTitle = document.createElement('h2');
+  const last7DaysAverageRevenueTitle = document.createElement('p');
   last7DaysAverageRevenueTitle.textContent =
     'Revenu quotidien moyen sur les 7 derniers jours';
   grid[0].appendChild(last7DaysAverageRevenueTitle);
 
-  const last7DaysAverageRevenueStat = document.createElement('p');
+  const last7DaysAverageRevenueStat = document.createElement('h2');
   last7DaysAverageRevenueStat.textContent = last7DaysAverageRevenue;
   grid[0].appendChild(last7DaysAverageRevenueStat);
 }
