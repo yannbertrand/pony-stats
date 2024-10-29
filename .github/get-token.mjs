@@ -1,12 +1,13 @@
 import { getInput, setFailed, setOutput } from '@actions/core';
+import { env } from 'node:process';
 import { getToken } from '../lib/get-token.mjs';
 
 try {
   const accessToken = await getToken(
-    process.env.USER_ID,
-    process.env.REFRESH_TOKEN,
-    process.env.SECURE_TOKEN_KEY,
-    getInput('lastAccessToken') ?? process.env.LAST_ACCESS_TOKEN
+    env.USER_ID,
+    env.REFRESH_TOKEN,
+    env.SECURE_TOKEN_KEY,
+    getInput('lastAccessToken') ?? env.LAST_ACCESS_TOKEN
   );
 
   setOutput('accessToken', accessToken);
