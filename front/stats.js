@@ -7,7 +7,7 @@ export function createStats(rawTrips, bikes) {
 
   const last7DaysAverageRevenueTitle = document.createElement('h2');
   last7DaysAverageRevenueTitle.textContent =
-    'Revenu moyen sur les 7 derniers jours';
+    'Revenu quotidien moyen sur les 7 derniers jours';
   grid[0].appendChild(last7DaysAverageRevenueTitle);
 
   const last7DaysAverageRevenueStat = document.createElement('p');
