@@ -40,6 +40,8 @@ jobs:
         name: Update trips file
         run: npm run gh:update-trips-file '${{ steps.get-trips.outputs.trips }}'
       - uses: test-room-7/action-update-file@v1
+        env:
+          FORCE_JAVASCRIPT_ACTIONS_TO_NODE20: true
         with:
           file-path: trips.json
           commit-msg: Update trips.json
