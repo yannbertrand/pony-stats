@@ -1,8 +1,9 @@
-import { setFailed, setOutput, getInput } from '@actions/core';
+import { setFailed, setOutput } from '@actions/core';
+import { env } from 'node:process';
 import { getTrips } from '../lib/get-trips.mjs';
 
 try {
-  const trips = await getTrips(process.env.USER_ID, process.env.ACCESS_TOKEN);
+  const trips = await getTrips(env.USER_ID, env.ACCESS_TOKEN);
 
   console.log(`Got ${trips.length} trips`);
 
