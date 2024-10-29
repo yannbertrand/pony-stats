@@ -1,9 +1,9 @@
 import trips from '../trips.json' with { type: 'json' };
-import { transformTrips } from './transform-trips.mjs';
-import { getBikes } from './get-bikes.mjs';
-import { createStats } from './stats.mjs';
-import { createGraphsPerDay } from './graph-per-day.mjs';
-import { avg, median, duration } from './maths.mjs';
+import { transformTrips } from './transform-trips.js';
+import { getBikes } from './get-bikes.js';
+import { createStats } from './stats.js';
+import { createGraphsPerDay } from './graph-per-day.js';
+import { avg, median, duration } from './maths.js';
 import '@picocss/pico/css/pico.css';
 
 const rawTrips = trips

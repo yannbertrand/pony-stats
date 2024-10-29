@@ -1,5 +1,5 @@
-import { createGrid } from './get-canvas.mjs';
-import { avg, getDateArray } from './maths.mjs';
+import { createGrid } from './get-canvas.js';
+import { avg, getDateArray } from './maths.js';
 
 export function createStats(rawTrips, bikes) {
   const grid = createGrid('stats', 1);
