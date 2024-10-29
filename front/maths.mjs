@@ -5,9 +5,7 @@ export function avg(values) {
 export function median(values) {
   if (values.length === 0) throw new Error('No inputs');
 
-  values.sort(function (a, b) {
-    return a - b;
-  });
+  values.sort((a, b) => a - b);
 
   var half = Math.floor(values.length / 2);
 

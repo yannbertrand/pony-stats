@@ -1,39 +1,25 @@
 import trips from '../trips.json' with { type: 'json' };
 import { transformTrips } from './transform-trips.mjs';
 import { getBikes } from './get-bikes.mjs';
-import { createCanvas } from './get-canvas.mjs';
 import { createStats } from './stats.mjs';
 import { createGraphsPerDay } from './graph-per-day.mjs';
 import { avg, median, duration } from './maths.mjs';
 import '@picocss/pico/css/pico.css';
 
 const rawTrips = trips
-  .filter(
-    (value, index, self) =>
-      index === self.findIndex((t) => t.trip_id === value.trip_id)
-  )
-  .filter(t => t.revenue !== undefined)
+  .filter((value, index, self) => index === self.findIndex((t) => t.trip_id === value.trip_id))
+  .filter((t) => t.revenue !== undefined)
   .reverse();
 
 console.log(`${rawTrips.length} trips`);
 console.log(JSON.stringify(rawTrips));
 
-console.log(
-  `Premier trajet le ${new Date(rawTrips.at(0).startTime).toLocaleString('fr')}`
-);
-console.log(
-  `Dernier trajet le ${new Date(rawTrips.at(-1).startTime).toLocaleString(
-    'fr'
-  )}`
-);
+console.log(`Premier trajet le ${new Date(rawTrips.at(0).startTime).toLocaleString('fr')}`);
+console.log(`Dernier trajet le ${new Date(rawTrips.at(-1).startTime).toLocaleString('fr')}`);
 
-const totalRevenue = rawTrips
-  .map((t) => t.revenue)
-  .reduce((total, d) => total + d, 0);
+const totalRevenue = rawTrips.map((t) => t.revenue).reduce((total, d) => total + d, 0);
 console.log(`Revenu total : ${(totalRevenue / 100).toFixed(3)}€`);
-const totalDuration = rawTrips
-  .map((t) => duration(t))
-  .reduce((total, d) => total + d, 0);
+const totalDuration = rawTrips.map((t) => duration(t)).reduce((total, d) => total + d, 0);
 console.log(`Durée totale : ${totalDuration / 1000}s`);
 
 const avgRevenue = avg(rawTrips.map((t) => t.revenue));
