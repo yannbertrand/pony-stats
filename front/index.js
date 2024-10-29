@@ -43,5 +43,5 @@ console.log(`Reasons: ${discountReasons.join(', ')}`);
 
 const transformedTrips = transformTrips(rawTrips);
 const bikes = getBikes(rawTrips);
-createStats(transformedTrips, bikes);
+createStats(transformedTrips);
 createGraphsPerDay(transformedTrips, bikes);

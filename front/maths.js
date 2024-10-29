@@ -7,7 +7,7 @@ export function median(values) {
 
   values.sort((a, b) => a - b);
 
-  var half = Math.floor(values.length / 2);
+  const half = Math.floor(values.length / 2);
 
   if (values.length % 2) return values[half];
 

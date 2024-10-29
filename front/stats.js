@@ -1,7 +1,7 @@
 import { createGrid } from './get-canvas.js';
 import { avg, getDateArray } from './maths.js';
 
-export function createStats(rawTrips, bikes) {
+export function createStats(rawTrips) {
   const grid = createGrid('stats', 1);
   const last7DaysAverageRevenue = getLast7DaysAverageRevenue(rawTrips);
 
