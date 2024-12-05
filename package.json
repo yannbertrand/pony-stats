@@ -14,7 +14,7 @@
     "gh:update-trips-file": "node --env-file-if-exists=.env .github/update-trips-file.js"
   },
   "devDependencies": {
-    "vite": "5.4.11"
+    "vite": "6.0.3"
   },
   "dependencies": {
     "@actions/core": "1.11.1",
