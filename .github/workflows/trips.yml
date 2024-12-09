@@ -45,10 +45,10 @@ jobs:
           git diff --exit-code trips.json >> /dev/null
           if [ $? -ne 0 ]; then
               echo "trips.json has changed"
-              echo "do-commit=false" >> $GITHUB_OUTPUT
+              echo "do-commit=true" >> $GITHUB_OUTPUT
           else
               echo "trips.json has not changed"
-              echo "do-commit=true" >> $GITHUB_OUTPUT
+              echo "do-commit=false" >> $GITHUB_OUTPUT
           fi
       - uses: test-room-7/action-update-file@v1
         if: steps.check-empty-file.outputs.do-commit == 'true'
