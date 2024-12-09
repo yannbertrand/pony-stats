@@ -6,7 +6,7 @@ name: Update trips
 on:
   workflow_dispatch:
   schedule:
-    - cron: 50 * * * *
+    - cron: 50 */3 * * *
 
 jobs:
   update-trips:
