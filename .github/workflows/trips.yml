@@ -39,7 +39,19 @@ jobs:
       - id: update-trips-file
         name: Update trips file
         run: npm run gh:update-trips-file '${{ steps.get-trips.outputs.trips }}'
+      - id: check-empty-file
+        name: Interrupt workflow
+        run: |
+          git diff --exit-code trips.json >> /dev/null
+          if [ $? -ne 0 ]; then
+              echo "trips.json has changed"
+              echo "do-commit=false" >> $GITHUB_OUTPUT
+          else
+              echo "trips.json has not changed"
+              echo "do-commit=true" >> $GITHUB_OUTPUT
+          fi
       - uses: test-room-7/action-update-file@v1
+        if: steps.check-empty-file.outputs.do-commit == 'true'
         env:
           FORCE_JAVASCRIPT_ACTIONS_TO_NODE20: true
         with:
