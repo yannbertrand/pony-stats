@@ -42,7 +42,7 @@ jobs:
       - id: check-empty-file
         name: Interrupt workflow
         run: |
-          git diff --exit-code trips.json >> /dev/null
+          git diff --exit-code trips.json > /dev/null
           if [ $? -ne 0 ]; then
               echo "trips.json has changed"
               echo "do-commit=true" >> $GITHUB_OUTPUT
