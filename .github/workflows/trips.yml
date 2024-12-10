@@ -56,5 +56,5 @@ jobs:
           FORCE_JAVASCRIPT_ACTIONS_TO_NODE20: true
         with:
           file-path: trips.json
-          commit-msg: Update trips.json
+          commit-msg: 📦️ Update trips.json
           github-token: ${{ secrets.GITHUB_TOKEN }}
