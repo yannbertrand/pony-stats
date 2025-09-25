@@ -54,7 +54,7 @@ jobs:
               echo "trips.json has not changed"
               echo "do-commit=false" >> $GITHUB_OUTPUT
           fi
-      - uses: test-room-7/action-update-file@v1
+      - uses: test-room-7/action-update-file@v2
         if: steps.check-empty-file.outputs.do-commit == 'true'
         env:
           FORCE_JAVASCRIPT_ACTIONS_TO_NODE20: true
