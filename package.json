@@ -16,7 +16,7 @@
 		"gh:update-trips-file": "node --env-file-if-exists=.env .github/update-trips-file.js"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.3.3",
+		"@biomejs/biome": "2.3.4",
 		"vite": "7.1.12"
 	},
 	"dependencies": {
