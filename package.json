@@ -6,7 +6,7 @@
 	"type": "module",
 	"scripts": {
 		"test": "vitest",
-		"update-trips-file": "node --env-file-if-exists=.env lib/index.js",
+		"update-trips": "node --env-file-if-exists=.env lib/update-trips.js",
 		"start": "vite dev",
 		"build": "vite build",
 		"lint": "biome check",
