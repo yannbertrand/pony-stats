@@ -24,6 +24,6 @@
 		"@actions/core": "1.11.1",
 		"@actions/github": "6.0.1",
 		"@picocss/pico": "1.5.13",
-		"chart.js": "4.5.1"
+		"chart.js": "4.6.1"
 	}
 }
